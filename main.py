@@ -113,7 +113,7 @@ ball.x = WIDTH // 2
 ball.direction_x = choice(("left", "right"))
 ball.direction_y = choice(("up", "down"))
 ball.speed = 1
-ball.winner = Non
+ball.winner = None
 
 # Funkcje sterujące
 def update():
