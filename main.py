@@ -1,12 +1,19 @@
-# Gra Ping Pong - projekt na zajęcia z "Podstaw programowania"
+# Gra Pong - projekt na zajęcia z "Podstaw programowania"
 
 # Wczytywanie modułów
 import pgzrun
 from random import randint, choice
 
+from pgzero.actor import Actor
+from pgzero.game import screen
+from pgzero.keyboard import keyboard
+
+
 # Definicja klasy dla paletek
+
+
 class Palette:
-    def __init__(self, palette, position, width = 140, ball_width = 10):
+    def __init__(self, palette, position, width=140, ball_width=10):
         """Palette i jej właściwości"""
         self.palette = palette
         self.palette.x = position[0]
@@ -32,8 +39,8 @@ class Palette:
 
     def bounce(self):
         """Sprawdzanie, czy piłeczka odbija się od paletki"""
-        # Jeśli środek paletki jest zbut daleko od środka piłeczki, to nie odbijamy
-        if (self.palette.distance_to(ball) > self.palette.pcenter + self.palette.ball_width):
+        # Jeśli środek paletki jest zbyt daleko od środka piłeczki, to nie odbijamy
+        if self.palette.distance_to(ball) > self.palette.pcenter + self.palette.ball_width:
             return False
         # Jeśli środek paletki jest dalej niż 20 pikseli od środka piłeczki w osi y, to nie odbijamy
         if abs(self.palette.y - ball.y) > self.palette.ball_width * 2:
@@ -47,7 +54,9 @@ class Palette:
         # i odbijamy piłeczkę
         return True
 
-#Definicje funkcji dodatkowych
+# Definicje funkcji dodatkowych
+
+
 def update_ball_position():
     # Aktualizacja pozycji w osi X
     if ball.direction_x == "left":
@@ -73,6 +82,7 @@ def update_ball_position():
     elif ball.y > HEIGHT - 5:
         ball.winner = "GRACZ A"
 
+
 def update_palettes():
     # Gracz A
     if keyboard.a:
@@ -85,11 +95,13 @@ def update_palettes():
     elif keyboard.l:
         palette_b.move("right")
 
+
 def check_bounce():
     if palette_a.bounce():
         ball.direction_y = "down"
     if palette_b.bounce():
        ball.direction_y = "up"
+
 
 def check_winner():
     if ball.winner:
@@ -97,6 +109,8 @@ def check_winner():
         screen.draw.text(winner_txt, (WIDTH // 3, HEIGHT // 2), color="white", fontsize=60)
 
 # Start programu
+
+
 WIDTH = 1280
 HEIGHT = 640
 TITLE = "Gra Ping Pong. Miłej gry :)."
@@ -116,10 +130,13 @@ ball.speed = 1
 ball.winner = None
 
 # Funkcje sterujące
+
+
 def update():
     update_ball_position()
     update_palettes()
     check_bounce()
+
 
 def draw():
     screen.blit("tlo.png", (0, 0))
@@ -129,4 +146,6 @@ def draw():
     check_winner()
 
 # Uruchomienie modułu Pygame Zero
+
+
 pgzrun.go()
